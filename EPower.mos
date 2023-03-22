@@ -1,0 +1,13 @@
+model ModelName
+  uses "mmxprs"
+  ! uses "mminsight" ! uncomment this line for an Xpress Insight model
+
+  declarations
+    ! ...
+    Objective:linctr
+  end-declarations
+
+  writeln("Begin running model")
+  !...
+  writeln("End running model")
+end-model

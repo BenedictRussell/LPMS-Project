@@ -1,0 +1,13 @@
+model ModelName
+  options noimplicit
+  uses "mmxprs"
+
+  declarations
+    ! ...
+    Objective:linctr
+  end-declarations
+
+  writeln("Begin running model")
+  !...
+  writeln("End running model")
+end-model
