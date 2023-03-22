@@ -34,7 +34,7 @@
     "local": {
         "window": {
             "@fullscreen": false,
-            "@maximized": false,
+            "@maximized": true,
             "@minimized": false,
             "@position": "40:10",
             "@size": "1202:622"
@@ -114,30 +114,29 @@
             "meta": {
                 "accessList": [
                     "tab1",
-                    "tab0"
+                    "tab2"
                 ]
             },
             "name": "pane0",
             "nodes": [
                 {
                     "type": "tab",
-                    "name": "tab0",
-                    "path": "",
+                    "name": "tab2",
+                    "path": "/EPower.dat",
                     "className": [
-                        "tab0"
+                        "tab2"
                     ],
                     "document": {
                         "changed": false,
                         "meta": {
-                            "welcome": true,
-                            "newOnError": true,
-                            "timestamp": 1679443577163
+                            "timestamp": 1679444129603
                         },
                         "filter": true,
-                        "title": "Welcome",
-                        "welcome": {}
+                        "title": "EPower.dat",
+                        "tooltip": "/EPower.dat",
+                        "ace": {}
                     },
-                    "editorType": "welcome",
+                    "editorType": "ace",
                     "active": false
                 },
                 {
@@ -151,7 +150,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679443601716
+                            "timestamp": 1679444129604
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -169,7 +168,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/README.md"
+            "/EPower.dat"
         ]
     },
     "welcome": {
