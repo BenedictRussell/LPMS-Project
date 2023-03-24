@@ -1,8 +1,85 @@
 {
+    "breakpoints": {
+        "json()": []
+    },
     "console": {
-        "@expanded": "false",
-        "@height": "300",
-        "@maximized": "false"
+        "@expanded": true,
+        "@height": 60,
+        "@maximized": "false",
+        "json()": {
+            "meta": {
+                "accessList": [
+                    "tab4",
+                    "tab3"
+                ]
+            },
+            "name": "pane1",
+            "nodes": [
+                {
+                    "type": "tab",
+                    "name": "tab3",
+                    "path": "",
+                    "className": [
+                        "tab3"
+                    ],
+                    "document": {
+                        "changed": false,
+                        "meta": {
+                            "timestamp": 1679679816247
+                        },
+                        "filter": true,
+                        "title": "EPower.mos - Stopped",
+                        "tooltip": "EPower.mos - Stopped",
+                        "output": {
+                            "id": "output545860",
+                            "width": 1228,
+                            "height": 28,
+                            "config": {
+                                "runner": "Mosel",
+                                "command": "EPower.mos",
+                                "debug": false,
+                                "toolbar": true,
+                                "name": ""
+                            }
+                        }
+                    },
+                    "editorType": "output",
+                    "active": false
+                },
+                {
+                    "type": "tab",
+                    "name": "tab4",
+                    "path": "",
+                    "className": [
+                        "tab4"
+                    ],
+                    "document": {
+                        "changed": false,
+                        "meta": {
+                            "timestamp": 1679688984584
+                        },
+                        "filter": true,
+                        "title": "Compile - Idle",
+                        "tooltip": "Compile - Idle",
+                        "output": {
+                            "id": "build",
+                            "width": 1228,
+                            "height": 28,
+                            "config": {
+                                "name": "Compile",
+                                "toolbar": false,
+                                "command": ""
+                            }
+                        }
+                    },
+                    "editorType": "output",
+                    "active": true
+                }
+            ],
+            "skin": "editor_tab",
+            "skinset": "default",
+            "type": "pane"
+        }
     },
     "ext": {
         "counters": {
@@ -10,17 +87,17 @@
             "@acestatus": 1,
             "@base-step-wizard": 2,
             "@divider": 4,
-            "@document": 3,
+            "@document": 5,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
             "@form": 4,
             "@menu": 3,
             "@menuitem": 8,
-            "@pane": 1,
-            "@session": 3,
-            "@tab": 3,
-            "@undoManager": 3,
+            "@pane": 2,
+            "@session": 5,
+            "@tab": 5,
+            "@undoManager": 5,
             "@welcome": 1
         }
     },
@@ -36,8 +113,8 @@
             "@fullscreen": false,
             "@maximized": true,
             "@minimized": false,
-            "@position": "40:10",
-            "@size": "1202:622"
+            "@position": "-7:0",
+            "@size": "632:649"
         }
     },
     "menus": {
@@ -51,7 +128,8 @@
     },
     "panecycle": {
         "json()": [
-            "tab1"
+            "tab1",
+            "tab4"
         ]
     },
     "panels": {
@@ -114,7 +192,8 @@
             "meta": {
                 "accessList": [
                     "tab1",
-                    "tab2"
+                    "tab2",
+                    "tab0"
                 ]
             },
             "name": "pane0",
@@ -129,7 +208,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679444129603
+                            "timestamp": 1679687523914
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -150,7 +229,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679444129604
+                            "timestamp": 1679696005328
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -168,7 +247,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/EPower.dat"
+            "/EPower.pdf"
         ]
     },
     "welcome": {

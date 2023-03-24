@@ -42,7 +42,16 @@
         }
     },
     "run": {
-        "@path": "/.c9/runners"
+        "@path": "/.c9/runners",
+        "configs": {
+            "json()": {
+                "Compile": {
+                    "command": "",
+                    "name": "Compile",
+                    "toolbar": false
+                }
+            }
+        }
     },
     "vdl": {
         "@openVDLViewsIn": "vdl.visual.editor"

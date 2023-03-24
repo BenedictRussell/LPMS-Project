@@ -1,18 +1,151 @@
-model ModelName
+model EPowerModel
   uses "mmxprs"
-  ! uses "mminsight" ! uncomment this line for an Xpress Insight model
+
 
   declarations
-    ! ...
-    Objective:linctr
+    Emiss: set of string
+    Source:	set of string
+    Times:	set of integer
+    PeriodLength:	array(Times) of real
+    Demand:		array(Times) of real
+    MaxOutput:  array(Source) of real
+    RunningCost:    array(Source) of real
+    IncreaseCost:   array(Source) of real
+    Emissions:    array(Emiss, Source) of real
+    EmissionsLimit: array(Emiss) of real
+    ElectricityPrice:	real
+    MaxHydroReserve:	real
+    NaturalHydroInflow:		real
+    HydroPowerEfficiencyFrac:	real
+    PowerOutput: array(Source, Times) of mpvar
+    IncreasedOutput: array(Source, Times) of mpvar
+    PumpDemand: array(Times) of mpvar
+    HydroReservePower: array(Times) of mpvar
   end-declarations
 
-  writeln("Begin running model")
-  !...
+  initialisations from "EPower.dat"
+    Emiss Source Times PeriodLength Demand MaxOutput RunningCost
+    IncreaseCost Emissions EmissionsLimit ElectricityPrice MaxHydroReserve NaturalHydroInflow
+    HydroPowerEfficiencyFrac
+  end-initialisations
+
+  ! Power Output
+  forall(t in Times) TotalPowerOutput(t) := PeriodLength(t)*sum(s in Source) PowerOutput(s,t)
 
 
-  ! Hello This is Niamh
+  ! Demand Constraint
+  forall(t in Times)
+    DemandCS(t) := TotalPowerOutput(t) - Pumpdemand(t) + HydroReservePower(t) = Demand(t)
 
 
-  writeln("End running model")
+
+  ! Define Revenue
+  Revenue := sum(t in Times) TotalPowerOutput(t)*ElectricityPrice
+
+
+  ! Constraint on maximum power output
+  forall(s in Source, t in Times)
+    OutputCS(s,t) := PowerOutput(s,t) <= MaxOutput(s)
+
+
+  ! The running cost
+  forall(t in Times)
+    RunCost(t) :=  PeriodLength(t)*sum(s in Source) RunningCost(s)*PowerOutput(s,t)
+
+  ! Total running cost
+  TotalRunningCost := sum(t in Times) RunCost(t)
+
+  ! The increase cost variables
+  forall(s in Source, t in Times) do
+    if t=1 then
+      IncreasedOutput(s,t) = PowerOutput(s,t) - PowerOutput(s,6)
+    else
+      IncreasedOutput(s,t) = PowerOutput(s,t) - PowerOutput(s,t-1)
+    end-if
+  end-do
+
+  ! The total cost of increasing
+  TotalIncreaseCost := sum(t in Times, s in Source) IncreasedOutput(s,t)*IncreaseCost(s)
+
+  ! Emission Constraints
+  forall(e in Emiss)
+    EmissionCS(e) := sum(s in Source) Emissions(e,s)* sum(t in Times) PowerOutput(s,t) <= EmissionsLimit(e)
+
+
+  ! Hydro Storage capacity
+
+  forall(t in Times) do
+    if t=1 then
+      HydroReservePower(t)  = HydroReservePower(6) + PumpDemand(t) + NaturalHydroInflow*PeriodLength(t)
+    else
+      HydroReservePower(t)  = HydroReservePower(t-1) + PumpDemand(t) + NaturalHydroInflow*PeriodLength(t)
+    end-if
+    HydrocapacityCS := HydroReservePower(t) <= MaxHydroReserve
+  end-do
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ! Objective Function: Profit
+  Profit := Revenue - TotalRunningCost - TotalIncreaseCost
+
+
+
+
+
+
+
+
+
+
+  maximise(Profit)
+
+  write("The Total Profit is ", getsol(Profit))
+
+  writeln
+
+  write("Sources")
+  forall(s in Source) write(",", s)
+  writeln
+
+  forall(t in Times) do
+    write("Period ", t)
+    forall(s in Source) write(",", getsol(PowerOutput(s,t)))
+    writeln
+  end-do
+  writeln
+
+  forall(e in Emiss)
+    writeln("The slack on the ", Emiss(e),  " constraint is ", getslack(EmissionCS(e)))
+  writeln
+
+  forall(s in Source) write(",",s)
+  writeln
+  forall(t in Times) do
+    writeln
+    forall(s in Source) write(",",getslack(OutputCS(s,t)))
+  end-do
+  writeln
+
+  forall(t in Times)
+    writeln("For time period ", t, " the slack on the demand constraint is ", getslack(DemandCS(t)))
+  writeln
+
+  writeln("The total revenue is ", getsol(Revenue))
+  writeln("The total running cost is ", getsol(TotalRunningCost))
+  writeln("The total increasing cost is ", getsol(TotalIncreaseCost))
+
+  writeln("The total power ouput for each period is")
+  forall(t in Times)
+    writeln(t,",", getsol(TotalPowerOutput(t)))
+
 end-model
