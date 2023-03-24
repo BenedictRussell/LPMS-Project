@@ -28,70 +28,63 @@ model EPowerModel
     IncreaseCost Emissions EmissionsLimit ElectricityPrice MaxHydroReserve NaturalHydroInflow
     HydroPowerEfficiencyFrac
   end-initialisations
-
-  ! Power Output
-  forall(t in Times) TotalPowerOutput(t) := PeriodLength(t)*sum(s in Source) PowerOutput(s,t)
-
-
-  ! Demand Constraint
-  forall(t in Times)
-    DemandCS(t) := TotalPowerOutput(t) - Pumpdemand(t) + HydroReservePower(t) = Demand(t)
-
-
-
-  ! Define Revenue
-  Revenue := sum(t in Times) TotalPowerOutput(t)*ElectricityPrice
-
-
-  ! Constraint on maximum power output
+  
+  ! Constraint on maximum power output per source
   forall(s in Source, t in Times)
     OutputCS(s,t) := PowerOutput(s,t) <= MaxOutput(s)
 
-
-  ! The running cost
+  ! The running cost per time period
   forall(t in Times)
     RunCost(t) :=  PeriodLength(t)*sum(s in Source) RunningCost(s)*PowerOutput(s,t)
 
   ! Total running cost
   TotalRunningCost := sum(t in Times) RunCost(t)
 
-  ! The increase cost variables
+  ! The increase cost
   forall(s in Source, t in Times) do
     if t=1 then
-      IncreasedOutput(s,t) = PowerOutput(s,t) - PowerOutput(s,6)
+      WrapAroundIncreaseCS := IncreasedOutput(s,t) >= PowerOutput(s,t) - PowerOutput(s,6)
     else
-      IncreasedOutput(s,t) = PowerOutput(s,t) - PowerOutput(s,t-1)
+      IncreaseCS:= IncreasedOutput(s,t) >= PowerOutput(s,t) - PowerOutput(s,t-1)
     end-if
+    NonnegativeIncreaseCS := IncreasedOutput(s,t) >= 0
   end-do
 
-  ! The total cost of increasing
+  ! The total cost of increasing output 
   TotalIncreaseCost := sum(t in Times, s in Source) IncreasedOutput(s,t)*IncreaseCost(s)
 
   ! Emission Constraints
   forall(e in Emiss)
-    EmissionCS(e) := sum(s in Source) Emissions(e,s)* sum(t in Times) PowerOutput(s,t) <= EmissionsLimit(e)
+    EmissionCS(e) := sum(s in Source, t in Times) Emissions(e,s)*PowerOutput(s,t) <= EmissionsLimit(e)
+
+
+  ! Demand Constraints 
+  
+  ! Power Output per period
+  forall(t in Times) 
+    PeriodPowerOutput(t) := sum(s in Source) PowerOutput(s,t)
+
+
+  ! Demand per period
+  forall(t in Times)
+    DemandCS(t) := PeriodPowerOutput(t) - PumpDemand(t) + HydroReservePower(t) = Demand(t)
 
 
   ! Hydro Storage capacity
 
   forall(t in Times) do
     if t=1 then
-      HydroReservePower(t)  = HydroReservePower(6) + PumpDemand(t) + NaturalHydroInflow*PeriodLength(t)
+      HydroReservePower(t) = HydroReservePower(6) + PeriodLength(t)*(PumpDemand(t)*HydroPowerEfficiencyFrac + NaturalHydroInflow - PowerOutput(6,t))
     else
-      HydroReservePower(t)  = HydroReservePower(t-1) + PumpDemand(t) + NaturalHydroInflow*PeriodLength(t)
+      HydroReservePower(t)  = HydroReservePower(t-1) + PeriodLength(t)*(PumpDemand(t)*HydroPowerEfficiencyFrac + NaturalHydroInflow - PowerOutput(6,t))
     end-if
-    HydrocapacityCS := HydroReservePower(t) <= MaxHydroReserve
+    HydrocapacityCS(t) := HydroReservePower(t) <= MaxHydroReserve
   end-do
-
-
-
-
-
-
-
-
-
-
+  
+  
+  
+  ! Define Revenue
+  Revenue := sum(t in Times) PeriodPowerOutput(t)*ElectricityPrice
 
 
 
@@ -146,6 +139,6 @@ model EPowerModel
 
   writeln("The total power ouput for each period is")
   forall(t in Times)
-    writeln(t,",", getsol(TotalPowerOutput(t)))
+    writeln(t,",", getsol(PeriodPowerOutput(t)))
 
 end-model

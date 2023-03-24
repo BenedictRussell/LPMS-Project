@@ -9,8 +9,8 @@
         "json()": {
             "meta": {
                 "accessList": [
-                    "tab4",
-                    "tab3"
+                    "tab3",
+                    "tab4"
                 ]
             },
             "name": "pane1",
@@ -44,7 +44,7 @@
                         }
                     },
                     "editorType": "output",
-                    "active": false
+                    "active": true
                 },
                 {
                     "type": "tab",
@@ -73,7 +73,7 @@
                         }
                     },
                     "editorType": "output",
-                    "active": true
+                    "active": false
                 }
             ],
             "skin": "editor_tab",
@@ -87,7 +87,7 @@
             "@acestatus": 1,
             "@base-step-wizard": 2,
             "@divider": 4,
-            "@document": 5,
+            "@document": 4,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
@@ -95,9 +95,9 @@
             "@menu": 3,
             "@menuitem": 8,
             "@pane": 2,
-            "@session": 5,
+            "@session": 4,
             "@tab": 5,
-            "@undoManager": 5,
+            "@undoManager": 4,
             "@welcome": 1
         }
     },
@@ -129,11 +129,11 @@
     "panecycle": {
         "json()": [
             "tab1",
-            "tab4"
+            "tab3"
         ]
     },
     "panels": {
-        "@active-left": "tree",
+        "@active-left": "none",
         "@active-right": "none",
         "commands.panel": {
             "@enabled": "false",
@@ -192,8 +192,7 @@
             "meta": {
                 "accessList": [
                     "tab1",
-                    "tab2",
-                    "tab0"
+                    "tab2"
                 ]
             },
             "name": "pane0",
@@ -208,7 +207,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679687523914
+                            "timestamp": 1679687523909
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -229,7 +228,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679696005328
+                            "timestamp": 1679699392168
                         },
                         "filter": true,
                         "title": "EPower.mos",
