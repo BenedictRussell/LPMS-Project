@@ -28,7 +28,7 @@ model EPowerModel
     IncreaseCost Emissions EmissionsLimit ElectricityPrice MaxHydroReserve NaturalHydroInflow
     HydroPowerEfficiencyFrac
   end-initialisations
-  
+
   ! Constraint on maximum power output per source
   forall(s in Source, t in Times)
     OutputCS(s,t) := PowerOutput(s,t) <= MaxOutput(s)
@@ -50,7 +50,7 @@ model EPowerModel
     NonnegativeIncreaseCS := IncreasedOutput(s,t) >= 0
   end-do
 
-  ! The total cost of increasing output 
+  ! The total cost of increasing output
   TotalIncreaseCost := sum(t in Times, s in Source) IncreasedOutput(s,t)*IncreaseCost(s)
 
   ! Emission Constraints
@@ -58,10 +58,10 @@ model EPowerModel
     EmissionCS(e) := sum(s in Source, t in Times) Emissions(e,s)*PowerOutput(s,t) <= EmissionsLimit(e)
 
 
-  ! Demand Constraints 
-  
+  ! Demand Constraints
+
   ! Power Output per period
-  forall(t in Times) 
+  forall(t in Times)
     PeriodPowerOutput(t) := sum(s in Source) PowerOutput(s,t)
 
 
@@ -80,9 +80,9 @@ model EPowerModel
     end-if
     HydrocapacityCS(t) := HydroReservePower(t) <= MaxHydroReserve
   end-do
-  
-  
-  
+
+
+
   ! Define Revenue
   Revenue := sum(t in Times) PeriodPowerOutput(t)*ElectricityPrice
 
@@ -90,13 +90,6 @@ model EPowerModel
 
   ! Objective Function: Profit
   Profit := Revenue - TotalRunningCost - TotalIncreaseCost
-
-
-
-
-
-
-
 
 
 
