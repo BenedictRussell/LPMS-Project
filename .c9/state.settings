@@ -1,4 +1,15 @@
 {
+    "ace": {
+        "search": {
+            "@backwards": "false",
+            "@highlightmatches": "true",
+            "@matchcase": "false",
+            "@preservecase": "false",
+            "@regex": "false",
+            "@wholeword": "false",
+            "@wraparound": "true"
+        }
+    },
     "breakpoints": {
         "json()": []
     },
@@ -20,7 +31,8 @@
                     "name": "tab3",
                     "path": "",
                     "className": [
-                        "tab3"
+                        "tab3",
+                        "focus"
                     ],
                     "document": {
                         "changed": false,
@@ -32,7 +44,7 @@
                         "tooltip": "EPower.mos - Stopped",
                         "output": {
                             "id": "output545860",
-                            "width": 1228,
+                            "width": 1688,
                             "height": 28,
                             "config": {
                                 "runner": "Mosel",
@@ -63,7 +75,7 @@
                         "tooltip": "Compile - Idle",
                         "output": {
                             "id": "build",
-                            "width": 1228,
+                            "width": 1688,
                             "height": 28,
                             "config": {
                                 "name": "Compile",
@@ -87,7 +99,7 @@
             "@acestatus": 1,
             "@base-step-wizard": 2,
             "@divider": 4,
-            "@document": 4,
+            "@document": 6,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
@@ -95,9 +107,9 @@
             "@menu": 3,
             "@menuitem": 8,
             "@pane": 2,
-            "@session": 4,
-            "@tab": 5,
-            "@undoManager": 4,
+            "@session": 6,
+            "@tab": 6,
+            "@undoManager": 6,
             "@welcome": 1
         }
     },
@@ -111,10 +123,10 @@
     "local": {
         "window": {
             "@fullscreen": false,
-            "@maximized": true,
-            "@minimized": false,
-            "@position": "-7:0",
-            "@size": "632:649"
+            "@maximized": false,
+            "@minimized": true,
+            "@position": "-1318:-292",
+            "@size": "1207:624"
         }
     },
     "menus": {
@@ -128,12 +140,12 @@
     },
     "panecycle": {
         "json()": [
-            "tab1",
-            "tab3"
+            "tab3",
+            "tab1"
         ]
     },
     "panels": {
-        "@active-left": "none",
+        "@active-left": "tree",
         "@active-right": "none",
         "commands.panel": {
             "@enabled": "false",
@@ -207,7 +219,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679687523909
+                            "timestamp": 1679766424676
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -228,7 +240,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679699392168
+                            "timestamp": 1679766206921
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -246,7 +258,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/EPower.pdf"
+            "/EPower.csv"
         ]
     },
     "welcome": {

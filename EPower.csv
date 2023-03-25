@@ -1,0 +1,52 @@
+The Total Profit is 1807666.667
+Sources,Gas,Coal,Nuclear,Wind,Interconnect,Hydro
+Period 1,4916.666667,0,2833.333333,6000,0,0
+Period 2,6000,3166.666667,2833.333333,6000,0,0
+Period 3,6000,3916.666667,2833.333333,6000,0,1250
+Period 4,6000,5166.666667,2833.333333,6000,0,2000
+Period 5,6000,5166.666667,2833.333333,6000,0,0
+Period 6,6000,3166.666667,2833.333333,6000,0,0
+
+The slack on the Sulphur constraint is 0
+The slack on the CO2 constraint is 0
+
+For time period 1 the slack on the demand constraint is 0
+For time period 2 the slack on the demand constraint is 0
+For time period 3 the slack on the demand constraint is 0
+For time period 4 the slack on the demand constraint is 0
+For time period 5 the slack on the demand constraint is 0
+For time period 6 the slack on the demand constraint is 0
+
+The total revenue is 13824000
+The total running cost is 11528000
+The total increasing cost is 488333.3333
+The total power ouput for each period is
+1,13750
+2,18000
+3,20000
+4,22000
+5,20000
+6,18000
+
+The increase of optput matris is
+Period 1,0,0,0,0,0,0
+Period 2,1083.333333,3166.666667,0,0,0,0
+Period 3,0,750,0,0,0,1250
+Period 4,0,1250,0,0,0,750
+Period 5,0,0,0,0,0,0
+Period 6,0,0,0,0,0,0
+
+The amount of water in the reserve in each period is 
+1,24200
+2,25000
+3,18200
+4,11800
+5,12600
+6,13400
+The rate of water pumped in each period is 
+1,1750
+2,0
+3,0
+4,0
+5,0
+6,0
