@@ -10,7 +10,7 @@ PeriodLength:	[6		2		8		4		2		2]
 Demand:			[12000	18000	20000	22000	20000	18000]
 
 ! Source properties
-MaxOutput:      [6000 6000	5000  12000	 20000	2000]
+MaxOutput:      [6000 6000	5000  6000	 20000	2000]
 RunningCost:    [  40	30	  50      2	   100 	   5]
 IncreaseCost:   [  60	80 1e+10      1	    50	   5]
 

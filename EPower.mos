@@ -100,7 +100,7 @@ model EPowerModel
 
 
   !fopen("EPower.csv", F_OUTPUT)
-  write("The Total Profit is ", getsol(Profit))
+  write("The Total Profit is £", getsol(Profit))
 
   writeln
 
