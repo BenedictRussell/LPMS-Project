@@ -15,7 +15,7 @@
     },
     "console": {
         "@expanded": true,
-        "@height": 280,
+        "@height": 60,
         "@maximized": "false",
         "json()": {
             "meta": {
@@ -31,7 +31,8 @@
                     "name": "tab3",
                     "path": "",
                     "className": [
-                        "tab3"
+                        "tab3",
+                        "focus"
                     ],
                     "document": {
                         "changed": false,
@@ -43,8 +44,8 @@
                         "tooltip": "EPower.mos - Stopped",
                         "output": {
                             "id": "output545860",
-                            "width": 1688,
-                            "height": 248,
+                            "width": 1228,
+                            "height": 28,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "EPower.mos",
@@ -65,10 +66,6 @@
                         "tab4"
                     ],
                     "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1679688984584
-                        },
                         "filter": true,
                         "title": "Compile - Idle",
                         "tooltip": "Compile - Idle",
@@ -76,12 +73,18 @@
                             "id": "build",
                             "width": 1688,
                             "height": 248,
+                            "scrollTop": -1,
                             "config": {
                                 "name": "Compile",
                                 "toolbar": false,
                                 "command": ""
                             }
-                        }
+                        },
+                        "hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+                        "meta": {
+                            "timestamp": 1679688984584
+                        },
+                        "changed": false
                     },
                     "editorType": "output",
                     "active": false
@@ -98,7 +101,7 @@
             "@acestatus": 1,
             "@base-step-wizard": 2,
             "@divider": 4,
-            "@document": 7,
+            "@document": 5,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
@@ -106,9 +109,9 @@
             "@menu": 3,
             "@menuitem": 8,
             "@pane": 2,
-            "@session": 7,
+            "@session": 4,
             "@tab": 7,
-            "@undoManager": 7,
+            "@undoManager": 5,
             "@welcome": 1
         }
     },
@@ -139,12 +142,12 @@
     },
     "panecycle": {
         "json()": [
-            "tab1",
-            "tab3"
+            "tab3",
+            "tab1"
         ]
     },
     "panels": {
-        "@active-left": "tree",
+        "@active-left": "none",
         "@active-right": "none",
         "commands.panel": {
             "@enabled": "false",
@@ -197,14 +200,20 @@
     "recentfiles": {
         "json()": []
     },
+    "search-history": {
+        "search": {
+            "json()": [
+                "MaxOutput"
+            ]
+        }
+    },
     "tabs": {
         "json()": {
             "focus": "/EPower.mos",
             "meta": {
                 "accessList": [
                     "tab1",
-                    "tab2",
-                    "tab6"
+                    "tab2"
                 ]
             },
             "name": "pane0",
@@ -219,7 +228,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679766717615
+                            "timestamp": 1680203981160
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -240,7 +249,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1679766756173
+                            "timestamp": 1680203791307
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -249,26 +258,6 @@
                     },
                     "editorType": "ace",
                     "active": true
-                },
-                {
-                    "type": "tab",
-                    "name": "tab6",
-                    "path": "/EPower.csv",
-                    "className": [
-                        "tab6"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1679766443482
-                        },
-                        "filter": true,
-                        "title": "EPower.csv",
-                        "tooltip": "/EPower.csv",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
                 }
             ],
             "skin": "editor_tab",

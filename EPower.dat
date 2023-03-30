@@ -25,3 +25,7 @@ ElectricityPrice:			[32]
 MaxHydroReserve:			[25000]
 NaturalHydroInflow:			[400]
 HydroPowerEfficiencyFrac:	[0.8]
+
+! Stage 2 details
+Multiplier:     [ 0.5]
+SolarOutput:    [1000 2000 4000 2000 1000 0]

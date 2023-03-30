@@ -22,14 +22,19 @@ model EPowerModel
     PumpDemand: array(Times) of mpvar
     HydroReservePower: array(Times) of mpvar
     EmissionFactor: array(Emiss) of real
+    Multiplier: real
+    SolarOutput: array(Times) of real
   end-declarations
 
   initialisations from "EPower.dat"
     Emiss Source Times PeriodLength Demand MaxOutput RunningCost
     IncreaseCost Emissions EmissionsLimit ElectricityPrice MaxHydroReserve NaturalHydroInflow
-    HydroPowerEfficiencyFrac EmissionFactor
+    HydroPowerEfficiencyFrac EmissionFactor Multiplier SolarOutput
   end-initialisations
-
+  
+  ! Change max output for wind 
+  
+  
   ! Constraint on maximum power output per source
   forall(s in Source, t in Times)
     OutputCS(s,t) := PowerOutput(s,t) <= MaxOutput(s)
@@ -62,8 +67,9 @@ model EPowerModel
   ! Demand Constraints
 
   ! Power Output per period
+  ! Solar output added!
   forall(t in Times)
-    PeriodPowerOutputRate(t) := sum(s in Source) PowerOutput(s,t)
+    PeriodPowerOutputRate(t) := sum(s in Source) PowerOutput(s,t) !+ SolarOutput(t)
 
 
   ! Demand per period
@@ -101,9 +107,10 @@ model EPowerModel
 
   !fopen("EPower.csv", F_OUTPUT)
   write("The Total Profit is ", getsol(Profit))
-
   writeln
-
+  
+  writeln
+  writeln("This correponds to the power sources running at the below hourly rates in each time period")
   write("Sources")
   forall(s in Source) write(",", s)
   writeln
@@ -119,15 +126,17 @@ model EPowerModel
     writeln("The slack on the ", Emiss(e),  " constraint is ", getslack(EmissionCS(e)))
   writeln
 
-
-
-  forall(t in Times)
-    writeln("For time period ", t, " the slack on the demand constraint is ", getslack(DemandCS(t)))
+  forall(t in Times) do
+    if getslack(DemandCS(t)) <> 0 then
+      writeln("For time period ", t, " the demand is not met. The slack on the demand constraint is ", getslack(DemandCS(t)))
+    end-if 
+  end-do
   writeln
 
   writeln("The total revenue is ", getsol(Revenue))
   writeln("The total running cost is ", getsol(TotalRunningCost))
   writeln("The total increasing cost is ", getsol(TotalIncreaseCost))
+  writeln
 
   writeln("The total power ouput for each period is")
   forall(t in Times)
@@ -135,7 +144,7 @@ model EPowerModel
 
   
   writeln
-  writeln("The increase of optput matris is")
+  writeln("The increase of output matrix is")
   forall(t in Times) do
     write("Period ", t)
     forall(s in Source) write(",", getsol(IncreasedOutput(s,t)))
@@ -145,11 +154,12 @@ model EPowerModel
 
 
 
-  writeln("The amount of water in the reserve in each period is ")
+  writeln("The amount of potential energy in the reserve in each period is ")
   forall(t in Times)
     writeln(t,",", getsol(HydroReservePower(t)))
+  writeln
 
-  writeln("The rate of water pumped in each period is ")
+  writeln("The rate of water pumped into the reserve as potential energy in each period is ")
   forall(t in Times)
     writeln(t,",", getsol(PumpDemand(t)))
 
@@ -157,14 +167,3 @@ model EPowerModel
 
 end-model
 
-
-
-forall(t in Times) do
-    if t=1 then
-      HydroReservePower(t) := HydroReservePower(6) + PeriodLength(t)*(PumpDemand(t)*HydroPowerEfficiencyFrac + NaturalHydroInflow - PowerOutput("Hydro",t))
-    else
-      HydroReservePower(t)  := HydroReservePower(t-1) + PeriodLength(t)*(PumpDemand(t)*HydroPowerEfficiencyFrac + NaturalHydroInflow - PowerOutput("Hydro",t))
-    end-if
-    HydroReservePower(t) <= MaxHydroReserve
-    HydroReservePower(t) >= 0
-  end-do
