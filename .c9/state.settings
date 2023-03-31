@@ -15,7 +15,7 @@
     },
     "console": {
         "@expanded": true,
-        "@height": 307,
+        "@height": 190,
         "@maximized": "false",
         "json()": {
             "meta": {
@@ -43,8 +43,8 @@
                         "tooltip": "EPower.mos - Stopped",
                         "output": {
                             "id": "output545860",
-                            "width": 1048,
-                            "height": 275,
+                            "width": 1110,
+                            "height": 158,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "EPower.mos",
@@ -99,18 +99,18 @@
             "@ace": 1,
             "@acestatus": 1,
             "@base-step-wizard": 2,
-            "@divider": 4,
-            "@document": 5,
+            "@divider": 5,
+            "@document": 11,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
             "@form": 4,
-            "@menu": 3,
-            "@menuitem": 8,
+            "@menu": 6,
+            "@menuitem": 15,
             "@pane": 2,
-            "@session": 4,
-            "@tab": 7,
-            "@undoManager": 5,
+            "@session": 10,
+            "@tab": 10,
+            "@undoManager": 11,
             "@welcome": 1
         }
     },
@@ -124,10 +124,10 @@
     "local": {
         "window": {
             "@fullscreen": false,
-            "@maximized": false,
-            "@minimized": true,
-            "@position": "-1318:-292",
-            "@size": "1207:624"
+            "@maximized": true,
+            "@minimized": false,
+            "@position": "633:0",
+            "@size": "632:649"
         }
     },
     "menus": {
@@ -141,13 +141,14 @@
     },
     "panecycle": {
         "json()": [
-            "tab6",
+            "tab1",
             "tab3"
         ]
     },
     "panels": {
         "@active-left": "tree",
         "@active-right": "none",
+        "@width-left": 118,
         "commands.panel": {
             "@enabled": "false",
             "@name": "commands.panel"
@@ -201,11 +202,11 @@
     },
     "tabs": {
         "json()": {
-            "focus": "/EPower.csv",
+            "focus": "/EPower.mos",
             "meta": {
                 "accessList": [
-                    "tab6",
                     "tab1",
+                    "tab9",
                     "tab2"
                 ]
             },
@@ -221,7 +222,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680002096220
+                            "timestamp": 1680002096213
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -236,12 +237,13 @@
                     "name": "tab1",
                     "path": "/EPower.mos",
                     "className": [
-                        "tab1"
+                        "tab1",
+                        "focus"
                     ],
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680001912971
+                            "timestamp": 1680304576765
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -249,20 +251,19 @@
                         "ace": {}
                     },
                     "editorType": "ace",
-                    "active": false
+                    "active": true
                 },
                 {
                     "type": "tab",
-                    "name": "tab6",
+                    "name": "tab9",
                     "path": "/EPower.csv",
                     "className": [
-                        "tab6",
-                        "focus"
+                        "tab9"
                     ],
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680001752247
+                            "timestamp": 1680304433121
                         },
                         "filter": true,
                         "title": "EPower.csv",
@@ -270,7 +271,7 @@
                         "ace": {}
                     },
                     "editorType": "ace",
-                    "active": true
+                    "active": false
                 }
             ],
             "skin": "editor_tab",

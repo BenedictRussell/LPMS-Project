@@ -22,6 +22,7 @@ model EPowerModel
     PumpDemand: array(Times) of mpvar
     HydroReservePower: array(Times) of mpvar
     EmissionFactor: array(Emiss) of real
+    Limit: real
   end-declarations
 
   initialisations from "EPower.dat"
@@ -79,7 +80,7 @@ model EPowerModel
     else
       HydroCS(t) := HydroReservePower(t) = HydroReservePower(t-1) + PeriodLength(t)*(PumpDemand(t)*HydroPowerEfficiencyFrac + NaturalHydroInflow - PowerOutput("Hydro",t))
     end-if
-    
+
     HydroReservePower(t) <= MaxHydroReserve
     HydroReservePower(t) >= 0
   end-do
@@ -99,7 +100,7 @@ model EPowerModel
   maximise(Profit)
 
 
-  !fopen("EPower.csv", F_OUTPUT)
+  fopen("EPower.csv", F_OUTPUT)
   write("The Total Profit is £", getsol(Profit))
 
   writeln
@@ -133,7 +134,7 @@ model EPowerModel
   forall(t in Times)
     writeln(t,",", getsol(PeriodPowerOutputRate(t)))
 
-  
+
   writeln
   writeln("The increase of optput matris is")
   forall(t in Times) do
@@ -153,7 +154,29 @@ model EPowerModel
   forall(t in Times)
     writeln(t,",", getsol(PumpDemand(t)))
 
-  !fclose(F_OUTPUT)
+  Limit := 1
+  write("Limit",",","Profit",",")
+  forall(s in Source) write(",",s)
+  writeln
+  repeat
+
+  EmissionCS(Emiss(2)) := sum(s in Source, t in Times) Emissions(Emiss(2),s)*PowerOutput(s,t)*PeriodLength(t) <= EmissionsLimit(Emiss(2))*Limit
+
+  maximize(Profit)
+
+	write(Limit)
+	write(",", getsol(Profit))
+	write(",")
+	forall(s in Source) do
+    !write("Period ", t)
+     TotalUsed := sum(t in Times) getsol(PowerOutput(s,t))
+     write(",",TotalUsed)
+  end-do
+  writeln
+	Limit := Limit - .01
+
+  until Limit < .5
+  fclose(F_OUTPUT)
 
 end-model
 
