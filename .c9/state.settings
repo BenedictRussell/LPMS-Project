@@ -14,7 +14,7 @@
         "json()": []
     },
     "console": {
-        "@expanded": false,
+        "@expanded": true,
         "@height": 227,
         "@maximized": "false",
         "json()": {
@@ -39,12 +39,12 @@
                             "timestamp": 1679679816247
                         },
                         "filter": true,
-                        "title": "EPower.mos - Idle",
-                        "tooltip": "EPower.mos - Idle",
+                        "title": "EPower.mos - Stopped",
+                        "tooltip": "EPower.mos - Stopped",
                         "output": {
                             "id": "output545860",
-                            "width": 0,
-                            "height": 0,
+                            "width": 1048,
+                            "height": 195,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "EPower.mos",
@@ -212,8 +212,7 @@
             "meta": {
                 "accessList": [
                     "tab1",
-                    "tab2",
-                    "tab0"
+                    "tab2"
                 ]
             },
             "name": "pane0",
@@ -240,26 +239,6 @@
                 },
                 {
                     "type": "tab",
-                    "name": "tab0",
-                    "path": "/EPower.csv",
-                    "className": [
-                        "tab0"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1680304433119
-                        },
-                        "filter": true,
-                        "title": "EPower.csv",
-                        "tooltip": "/EPower.csv",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
-                },
-                {
-                    "type": "tab",
                     "name": "tab1",
                     "path": "/EPower.mos",
                     "className": [
@@ -269,7 +248,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680451993869
+                            "timestamp": 1680452119486
                         },
                         "filter": true,
                         "title": "EPower.mos",

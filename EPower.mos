@@ -145,9 +145,9 @@ model EPowerModel
     write("Period ", t)
     forall(s in Source) write(",", getsol(IncreasedOutput(s,t)))
     writeln
-  end-do  
+  end-do
 
-  writeln  writeln("The total power output for each source across our day is")
+  writeln("The total power output for each source across our day is")
   forall(s in Source) do
     writeln(s, ",", sum(t in Times) PeriodLength(t)*getsol(PowerOutput(s,t)))
   end-do
@@ -156,8 +156,8 @@ model EPowerModel
 
   writeln("The amount opowantial enetgyer in the reserve in each period is ")
   forall(t in Times)
-    writeln(t,",", getsol(HydroReservePower(t)))  writeln
-
+    writeln(t,",", getsol(HydroReservePower(t)))
+  
 
   writeln("The rate of water pump into the reserve as potential energyed in each period is ")
   forall(t in Times)
