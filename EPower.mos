@@ -6,7 +6,7 @@ model EPowerModel
     Emiss: set of string
     Source:	set of string
     Times:	set of integer
-    PeriodLength:	array(Times) of real
+    PeriodLength:	array(Times) of integer
     Demand:		array(Times) of real
     MaxOutput:  array(Source) of real
     RunningCost:    array(Source) of real
@@ -23,12 +23,13 @@ model EPowerModel
     HydroReservePower: array(Times) of mpvar
     EmissionFactor: array(Emiss) of real
     Limit: real
+    SolarOutput: array(Times) of real
   end-declarations
 
   initialisations from "EPower.dat"
     Emiss Source Times PeriodLength Demand MaxOutput RunningCost
     IncreaseCost Emissions EmissionsLimit ElectricityPrice MaxHydroReserve NaturalHydroInflow
-    HydroPowerEfficiencyFrac EmissionFactor
+    HydroPowerEfficiencyFrac EmissionFactor SolarOutput
   end-initialisations
 
   ! Constraint on maximum power output per source
@@ -90,12 +91,8 @@ model EPowerModel
   ! Define Revenue
   Revenue := sum(t in Times) (PeriodPowerOutputRate(t) - PumpDemand(t))*PeriodLength(t)*ElectricityPrice
 
-
-
   ! Objective Function: Profit
   Profit := Revenue - TotalRunningCost - TotalIncreaseCost
-
-
 
   maximise(Profit)
 
@@ -109,11 +106,14 @@ model EPowerModel
   write("Sources")
   forall(s in Source) write(",", s)
   writeln
-
+  TimeOfDay := 0
   forall(t in Times) do
-    write("Period ", t)
-    forall(s in Source) write(",", getsol(PowerOutput(s,t)))
-    writeln
+    forall(i in 1..PeriodLength(t)) do
+        write(TimeOfDay)
+        forall(s in Source) write(",", getsol(PowerOutput(s,t)))
+      writeln
+      TimeOfDay := TimeOfDay + 1
+      end-do
   end-do
   writeln
 
@@ -157,7 +157,7 @@ model EPowerModel
   writeln("The amount opowantial enetgyer in the reserve in each period is ")
   forall(t in Times)
     writeln(t,",", getsol(HydroReservePower(t)))
-  
+
 
   writeln("The rate of water pump into the reserve as potential energyed in each period is ")
   forall(t in Times)
@@ -177,7 +177,6 @@ model EPowerModel
 	write(",", getsol(Profit))
 	write(",")
 	forall(s in Source) do
-    !write("Period ", t)
      TotalUsed := sum(t in Times) getsol(PowerOutput(s,t))
      write(",",TotalUsed)
   end-do
@@ -185,7 +184,39 @@ model EPowerModel
 	Limit := Limit - .01
 
   until Limit < .5
-  fclose(F_OUTPUT)
 
+  writeln
+
+  forall(t in Times)
+    PeriodPowerOutputRate(t) := sum(s in Source) PowerOutput(s,t) + SolarOutput(t)
+
+ ! Demand per period
+  forall(t in Times)
+    DemandCS(t) := PeriodPowerOutputRate(t) - PumpDemand(t) = Demand(t)
+
+ ! Define Revenue
+  Revenue := sum(t in Times) (PeriodPowerOutputRate(t) - PumpDemand(t))*PeriodLength(t)*ElectricityPrice
+
+  ! Objective Function: Profit
+  Profit := Revenue - TotalRunningCost - TotalIncreaseCost
+
+  maximize(Profit)
+  write("The Total Profit is ", getsol(Profit))
+
+  writeln
+  writeln("This correponds to the power sources running at the below hourly rates in each time period")
+  write("Sources")
+  forall(s in Source) write(",", s)
+  writeln
+
+  forall(t in Times) do
+    write("Period ", t)
+    forall(s in Source) write(",", getsol(PowerOutput(s,t)))
+    write("Solar ",",", SolarOutput(t))
+    writeln
+  end-do
+  writeln
+
+  fclose(F_OUTPUT)
 end-model
 

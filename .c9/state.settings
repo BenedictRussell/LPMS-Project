@@ -20,8 +20,8 @@
         "json()": {
             "meta": {
                 "accessList": [
-                    "tab4",
-                    "tab3"
+                    "tab3",
+                    "tab4"
                 ]
             },
             "name": "pane1",
@@ -100,7 +100,7 @@
             "@acestatus": 1,
             "@base-step-wizard": 2,
             "@divider": 4,
-            "@document": 6,
+            "@document": 13,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
@@ -108,9 +108,9 @@
             "@menu": 3,
             "@menuitem": 8,
             "@pane": 2,
-            "@session": 5,
-            "@tab": 2,
-            "@undoManager": 6,
+            "@session": 12,
+            "@tab": 12,
+            "@undoManager": 13,
             "@welcome": 1
         }
     },
@@ -124,8 +124,8 @@
     "local": {
         "window": {
             "@fullscreen": false,
-            "@maximized": true,
-            "@minimized": false,
+            "@maximized": false,
+            "@minimized": true,
             "@position": "633:0",
             "@size": "632:649"
         }
@@ -212,6 +212,7 @@
             "meta": {
                 "accessList": [
                     "tab1",
+                    "tab11",
                     "tab2"
                 ]
             },
@@ -227,7 +228,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680451981023
+                            "timestamp": 1680454967424
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -248,7 +249,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680452119486
+                            "timestamp": 1680454926210
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -257,6 +258,27 @@
                     },
                     "editorType": "ace",
                     "active": true
+                },
+                {
+                    "type": "tab",
+                    "name": "tab11",
+                    "path": "/EPower1.csv",
+                    "className": [
+                        "tab11",
+                        "changed"
+                    ],
+                    "document": {
+                        "changed": true,
+                        "meta": {
+                            "timestamp": 1680454980830
+                        },
+                        "filter": true,
+                        "title": "EPower1.csv",
+                        "tooltip": "/EPower1.csv",
+                        "ace": {}
+                    },
+                    "editorType": "ace",
+                    "active": false
                 }
             ],
             "skin": "editor_tab",
@@ -266,7 +288,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/EPower.mos"
+            "/EPower1.csv"
         ]
     },
     "welcome": {
