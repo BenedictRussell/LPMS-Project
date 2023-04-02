@@ -22,18 +22,14 @@ model EPowerModel
     PumpDemand: array(Times) of mpvar
     HydroReservePower: array(Times) of mpvar
     EmissionFactor: array(Emiss) of real
-    Multiplier: real
-    SolarOutput: array(Times) of real
+    Limit: real
   end-declarations
 
   initialisations from "EPower.dat"
     Emiss Source Times PeriodLength Demand MaxOutput RunningCost
     IncreaseCost Emissions EmissionsLimit ElectricityPrice MaxHydroReserve NaturalHydroInflow
-    HydroPowerEfficiencyFrac EmissionFactor Multiplier SolarOutput
+    HydroPowerEfficiencyFrac EmissionFactor
   end-initialisations
-
-  ! Change max output for wind
-
 
   ! Constraint on maximum power output per source
   forall(s in Source, t in Times)
@@ -67,9 +63,8 @@ model EPowerModel
   ! Demand Constraints
 
   ! Power Output per period
-  ! Solar output added!
   forall(t in Times)
-    PeriodPowerOutputRate(t) := sum(s in Source) PowerOutput(s,t) !+ SolarOutput(t)
+    PeriodPowerOutputRate(t) := sum(s in Source) PowerOutput(s,t)
 
 
   ! Demand per period
@@ -138,35 +133,58 @@ model EPowerModel
   writeln("The total increasing cost is ", getsol(TotalIncreaseCost))
   writeln
 
+
   writeln("The total power ouput for each period is")
   forall(t in Times)
     writeln(t,",", getsol(PeriodPowerOutputRate(t)))
 
 
   writeln
-  writeln("The increase of output matrix is")
+  writeln("The increase ofuoptput matxis is")
   forall(t in Times) do
     write("Period ", t)
     forall(s in Source) write(",", getsol(IncreasedOutput(s,t)))
     writeln
-  end-do
-  
-  writeln
-  writeln("The total power output for each source across our day is")
+  end-do  
+
+  writeln  writeln("The total power output for each source across our day is")
   forall(s in Source) do
     writeln(s, ",", sum(t in Times) PeriodLength(t)*getsol(PowerOutput(s,t)))
   end-do
   writeln
 
-  writeln("The amount of potential energy in the reserve in each period is ")
-  forall(t in Times)
-    writeln(t,",", getsol(HydroReservePower(t)))
-  writeln
 
-  writeln("The rate of water pumped into the reserve as potential energy in each period is ")
+  writeln("The amount opowantial enetgyer in the reserve in each period is ")
+  forall(t in Times)
+    writeln(t,",", getsol(HydroReservePower(t)))  writeln
+
+
+  writeln("The rate of water pump into the reserve as potential energyed in each period is ")
   forall(t in Times)
     writeln(t,",", getsol(PumpDemand(t)))
 
+  Limit := 1
+  write("Limit",",","Profit",",")
+  forall(s in Source) write(",",s)
+  writeln
+  repeat
+
+  EmissionCS(Emiss(2)) := sum(s in Source, t in Times) Emissions(Emiss(2),s)*PowerOutput(s,t)*PeriodLength(t) <= EmissionsLimit(Emiss(2))*Limit
+
+  maximize(Profit)
+
+	write(Limit)
+	write(",", getsol(Profit))
+	write(",")
+	forall(s in Source) do
+    !write("Period ", t)
+     TotalUsed := sum(t in Times) getsol(PowerOutput(s,t))
+     write(",",TotalUsed)
+  end-do
+  writeln
+	Limit := Limit - .01
+
+  until Limit < .5
   fclose(F_OUTPUT)
 
 end-model
