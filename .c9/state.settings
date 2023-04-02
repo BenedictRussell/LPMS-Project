@@ -15,7 +15,7 @@
     },
     "console": {
         "@expanded": true,
-        "@height": 60,
+        "@height": 227,
         "@maximized": "false",
         "json()": {
             "meta": {
@@ -31,8 +31,7 @@
                     "name": "tab3",
                     "path": "",
                     "className": [
-                        "tab3",
-                        "focus"
+                        "tab3"
                     ],
                     "document": {
                         "changed": false,
@@ -44,8 +43,8 @@
                         "tooltip": "EPower.mos - Stopped",
                         "output": {
                             "id": "output545860",
-                            "width": 1228,
-                            "height": 28,
+                            "width": 587,
+                            "height": 195,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "EPower.mos",
@@ -101,7 +100,7 @@
             "@acestatus": 1,
             "@base-step-wizard": 2,
             "@divider": 4,
-            "@document": 5,
+            "@document": 6,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
@@ -109,9 +108,9 @@
             "@menu": 3,
             "@menuitem": 8,
             "@pane": 2,
-            "@session": 4,
-            "@tab": 7,
-            "@undoManager": 5,
+            "@session": 5,
+            "@tab": 6,
+            "@undoManager": 6,
             "@welcome": 1
         }
     },
@@ -125,10 +124,10 @@
     "local": {
         "window": {
             "@fullscreen": false,
-            "@maximized": true,
-            "@minimized": false,
-            "@position": "-1318:-292",
-            "@size": "1207:624"
+            "@maximized": false,
+            "@minimized": true,
+            "@position": "633:0",
+            "@size": "632:649"
         }
     },
     "menus": {
@@ -142,8 +141,8 @@
     },
     "panecycle": {
         "json()": [
-            "tab3",
-            "tab1"
+            "tab2",
+            "tab3"
         ]
     },
     "panels": {
@@ -209,11 +208,11 @@
     },
     "tabs": {
         "json()": {
-            "focus": "/EPower.mos",
+            "focus": "/EPower.dat",
             "meta": {
                 "accessList": [
-                    "tab1",
-                    "tab2"
+                    "tab2",
+                    "tab1"
                 ]
             },
             "name": "pane0",
@@ -223,12 +222,13 @@
                     "name": "tab2",
                     "path": "/EPower.dat",
                     "className": [
-                        "tab2"
+                        "tab2",
+                        "focus"
                     ],
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680203981160
+                            "timestamp": 1680366922922
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -236,20 +236,19 @@
                         "ace": {}
                     },
                     "editorType": "ace",
-                    "active": false
+                    "active": true
                 },
                 {
                     "type": "tab",
                     "name": "tab1",
                     "path": "/EPower.mos",
                     "className": [
-                        "tab1",
-                        "focus"
+                        "tab1"
                     ],
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680203791307
+                            "timestamp": 1680366203436
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -257,7 +256,7 @@
                         "ace": {}
                     },
                     "editorType": "ace",
-                    "active": true
+                    "active": false
                 }
             ],
             "skin": "editor_tab",
@@ -267,7 +266,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/EPower.csv"
+            "/"
         ]
     },
     "welcome": {

@@ -31,10 +31,10 @@ model EPowerModel
     IncreaseCost Emissions EmissionsLimit ElectricityPrice MaxHydroReserve NaturalHydroInflow
     HydroPowerEfficiencyFrac EmissionFactor Multiplier SolarOutput
   end-initialisations
-  
-  ! Change max output for wind 
-  
-  
+
+  ! Change max output for wind
+
+
   ! Constraint on maximum power output per source
   forall(s in Source, t in Times)
     OutputCS(s,t) := PowerOutput(s,t) <= MaxOutput(s)
@@ -85,7 +85,7 @@ model EPowerModel
     else
       HydroCS(t) := HydroReservePower(t) = HydroReservePower(t-1) + PeriodLength(t)*(PumpDemand(t)*HydroPowerEfficiencyFrac + NaturalHydroInflow - PowerOutput("Hydro",t))
     end-if
-    
+
     HydroReservePower(t) <= MaxHydroReserve
     HydroReservePower(t) >= 0
   end-do
@@ -105,10 +105,10 @@ model EPowerModel
   maximise(Profit)
 
 
-  !fopen("EPower.csv", F_OUTPUT)
+  fopen("EPower1.csv", F_OUTPUT)
   write("The Total Profit is ", getsol(Profit))
   writeln
-  
+
   writeln
   writeln("This correponds to the power sources running at the below hourly rates in each time period")
   write("Sources")
@@ -129,7 +129,7 @@ model EPowerModel
   forall(t in Times) do
     if getslack(DemandCS(t)) <> 0 then
       writeln("For time period ", t, " the demand is not met. The slack on the demand constraint is ", getslack(DemandCS(t)))
-    end-if 
+    end-if
   end-do
   writeln
 
@@ -142,7 +142,7 @@ model EPowerModel
   forall(t in Times)
     writeln(t,",", getsol(PeriodPowerOutputRate(t)))
 
-  
+
   writeln
   writeln("The increase of output matrix is")
   forall(t in Times) do
@@ -150,9 +150,13 @@ model EPowerModel
     forall(s in Source) write(",", getsol(IncreasedOutput(s,t)))
     writeln
   end-do
+  
   writeln
-
-
+  writeln("The total power output for each source across our day is")
+  forall(s in Source) do
+    writeln(s, ",", sum(t in Times) PeriodLength(t)*getsol(PowerOutput(s,t)))
+  end-do
+  writeln
 
   writeln("The amount of potential energy in the reserve in each period is ")
   forall(t in Times)
@@ -163,7 +167,7 @@ model EPowerModel
   forall(t in Times)
     writeln(t,",", getsol(PumpDemand(t)))
 
-  !fclose(F_OUTPUT)
+  fclose(F_OUTPUT)
 
 end-model
 
