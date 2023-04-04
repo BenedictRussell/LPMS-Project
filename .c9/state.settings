@@ -15,7 +15,7 @@
     },
     "console": {
         "@expanded": true,
-        "@height": 87,
+        "@height": 140,
         "@maximized": "false",
         "json()": {
             "meta": {
@@ -31,7 +31,8 @@
                     "name": "tab3",
                     "path": "",
                     "className": [
-                        "tab3"
+                        "tab3",
+                        "running"
                     ],
                     "document": {
                         "changed": false,
@@ -39,18 +40,47 @@
                             "timestamp": 1679679816247
                         },
                         "filter": true,
-                        "title": "EPower.mos - Stopped",
-                        "tooltip": "EPower.mos - Stopped",
+                        "title": "EPower.mos - Running",
+                        "tooltip": "EPower.mos - Running",
                         "output": {
                             "id": "output545860",
                             "width": 1048,
-                            "height": 55,
+                            "height": 108,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "EPower.mos",
                                 "debug": false,
                                 "toolbar": true,
                                 "name": ""
+                            },
+                            "running": {
+                                "pid": -44,
+                                "name": "output545860",
+                                "running": 2,
+                                "runner": [
+                                    {
+                                        "caption": "Mosel",
+                                        "cmd": [
+                                            "C:\\xpressmp\\workbench\\.c9\\node.exe",
+                                            "C:\\xpressmp\\workbench\\.c9\\node_modules\\mosel-runner\\bin\\mosel-runner",
+                                            "run",
+                                            "${debug?--debug=6167}",
+                                            "--basedir",
+                                            "$project_path",
+                                            "$file",
+                                            "--stack-trace=20",
+                                            "$args"
+                                        ],
+                                        "cmdCleanup": [
+                                            "true"
+                                        ],
+                                        "debugger": "mosel",
+                                        "debugport": 6167,
+                                        "selector": "\\.mos$",
+                                        "$builtin": true
+                                    }
+                                ],
+                                "debug": false
                             }
                         }
                     },
@@ -75,7 +105,7 @@
                         "output": {
                             "id": "build",
                             "width": 1048,
-                            "height": 55,
+                            "height": 108,
                             "config": {
                                 "name": "Compile",
                                 "toolbar": false,
@@ -97,18 +127,18 @@
             "@ace": 1,
             "@acestatus": 1,
             "@base-step-wizard": 2,
-            "@divider": 4,
-            "@document": 28,
+            "@divider": 5,
+            "@document": 7,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
             "@form": 4,
-            "@menu": 3,
-            "@menuitem": 8,
+            "@menu": 6,
+            "@menuitem": 15,
             "@pane": 2,
-            "@session": 28,
-            "@tab": 27,
-            "@undoManager": 28,
+            "@session": 7,
+            "@tab": 1,
+            "@undoManager": 7,
             "@welcome": 1
         }
     },
@@ -210,8 +240,7 @@
             "meta": {
                 "accessList": [
                     "tab1",
-                    "tab26",
-                    "tab25",
+                    "tab0",
                     "tab2"
                 ]
             },
@@ -227,7 +256,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680470132884
+                            "timestamp": 1680470132877
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -248,7 +277,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680560977080
+                            "ignoreState": 0
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -260,39 +289,20 @@
                 },
                 {
                     "type": "tab",
-                    "name": "tab25",
+                    "name": "tab0",
                     "path": "/EPower2.csv",
                     "className": [
-                        "tab25"
+                        "tab0",
+                        "changed"
                     ],
                     "document": {
-                        "changed": false,
+                        "changed": true,
                         "meta": {
-                            "timestamp": 1680472332770
+                            "timestamp": 1680625894233
                         },
                         "filter": true,
                         "title": "EPower2.csv",
                         "tooltip": "/EPower2.csv",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
-                },
-                {
-                    "type": "tab",
-                    "name": "tab26",
-                    "path": "/EPower1.csv",
-                    "className": [
-                        "tab26"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1680471002107
-                        },
-                        "filter": true,
-                        "title": "EPower1.csv",
-                        "tooltip": "/EPower1.csv",
                         "ace": {}
                     },
                     "editorType": "ace",
