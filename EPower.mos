@@ -29,7 +29,7 @@ model EPowerModel
   initialisations from "EPower.dat"
     Emiss Source Times PeriodLength Demand MaxOutput RunningCost
     IncreaseCost Emissions EmissionsLimit ElectricityPrice MaxHydroReserve NaturalHydroInflow
-    HydroPowerEfficiencyFrac EmissionFactor SolarOutput
+    HydroPowerEfficiencyFrac SolarOutput
   end-initialisations
 
   ! Constraint on maximum power output per source
@@ -82,7 +82,7 @@ model EPowerModel
       HydroCS(t) := HydroReservePower(t) = HydroReservePower(t-1) + PeriodLength(t)*(PumpDemand(t)*HydroPowerEfficiencyFrac + NaturalHydroInflow - PowerOutput("Hydro",t))
     end-if
 
-    HydroReservePower(t) <= MaxHydroReserve
+    MaxHydroReserveCS(t) := HydroReservePower(t) <= MaxHydroReserve
     HydroReservePower(t) >= 0
   end-do
 
@@ -97,12 +97,17 @@ model EPowerModel
   maximise(Profit)
 
 
-  fopen("EPower1.csv", F_OUTPUT)
-  write("The Total Profit is ", getsol(Profit))
+  fopen("EPower2.csv", F_OUTPUT)
+  
+  writeln("BASE CASE SOLUTIONS")
+  writeln
+  writeln("The Total Profit is ", getsol(Profit))
+  writeln("The total revenue is ", getsol(Revenue))
+  writeln("The total running cost is ", getsol(TotalRunningCost))
+  writeln("The total increasing cost is ", getsol(TotalIncreaseCost))
   writeln
 
-  writeln
-  writeln("This correponds to the power sources running at the below hourly rates in each time period")
+  writeln("This correponds to the power sources running at the below hourly rates over a day")
   write("Sources")
   forall(s in Source) write(",", s)
   writeln
@@ -116,9 +121,60 @@ model EPowerModel
       end-do
   end-do
   writeln
+  
+  
+  writeln("The total power ouput for each period is")
+  forall(t in Times)
+    writeln(t,",", getsol(PeriodPowerOutputRate(t)))
+  writeln
 
-  forall(e in Emiss)
+  writeln("The increase of output matrix is")
+  forall(t in Times) do
+    write("Period ", t)
+    forall(s in Source) write(",", getsol(IncreasedOutput(s,t)))
+    writeln
+  end-do
+  writeln
+  
+  writeln("The total power output for each source across our day is")
+  forall(s in Source) do
+    writeln(s, ",", sum(t in Times) PeriodLength(t)*getsol(PowerOutput(s,t)))
+  end-do
+  writeln
+
+  writeln("The amount of potential energy in the reserve in each period is ")
+  forall(t in Times)
+    writeln(t,",", getsol(HydroReservePower(t)))
+
+
+  writeln("The rate of water pump into the reserve as potential energy in each period is ")
+  forall(t in Times)
+    writeln(t,",", getsol(PumpDemand(t)))
+  writeln
+    
+  writeln("THE SLACK ON THE CONSTRAINTS FOR THE BASE CASE:")
+  writeln
+    
+  forall(e in Emiss) do
     writeln("The slack on the ", Emiss(e),  " constraint is ", getslack(EmissionCS(e)))
+    if getslack(EmissionCS(e)) = 0 then
+      writeln("This corresponds to a fair price of ", Emiss(e), " of ", getdual(EmissionCS(e)))
+    end-if
+  end-do
+  writeln
+  
+  writeln("The sources and time periods where the slack on the maximum output constraint is zero and the corresponding fairprice")
+  forall(s in Source, t in Times) do
+    if getslack(OutputCS(s,t)) = 0 then
+      writeln(Source(s), " in time period ", Times(t), " has fair price ", getdual(OutputCS(s,t)))
+    end-if
+  end-do
+  
+  forall(t in Times) do
+    if getslack(MaxHydroReserveCS(t)) = 0 then
+      writeln("For time period ", t, " the fair price for increasing size of the hydro reserve ", getslack(HydroCS(t)))
+    end-if
+  end-do
   writeln
 
   forall(t in Times) do
@@ -127,41 +183,9 @@ model EPowerModel
     end-if
   end-do
   writeln
-
-  writeln("The total revenue is ", getsol(Revenue))
-  writeln("The total running cost is ", getsol(TotalRunningCost))
-  writeln("The total increasing cost is ", getsol(TotalIncreaseCost))
+    
+  writeln("CUTTING CO2 EMISSIONS BY UP TO 50% AND USING HYDRO POWER")
   writeln
-
-
-  writeln("The total power ouput for each period is")
-  forall(t in Times)
-    writeln(t,",", getsol(PeriodPowerOutputRate(t)))
-
-
-  writeln
-  writeln("The increase ofuoptput matxis is")
-  forall(t in Times) do
-    write("Period ", t)
-    forall(s in Source) write(",", getsol(IncreasedOutput(s,t)))
-    writeln
-  end-do
-
-  writeln("The total power output for each source across our day is")
-  forall(s in Source) do
-    writeln(s, ",", sum(t in Times) PeriodLength(t)*getsol(PowerOutput(s,t)))
-  end-do
-  writeln
-
-
-  writeln("The amount opowantial enetgyer in the reserve in each period is ")
-  forall(t in Times)
-    writeln(t,",", getsol(HydroReservePower(t)))
-
-
-  writeln("The rate of water pump into the reserve as potential energyed in each period is ")
-  forall(t in Times)
-    writeln(t,",", getsol(PumpDemand(t)))
 
   Limit := 1
   write("Limit",",","Profit",",")
@@ -201,21 +225,64 @@ model EPowerModel
   Profit := Revenue - TotalRunningCost - TotalIncreaseCost
 
   maximize(Profit)
-  write("The Total Profit is ", getsol(Profit))
+  
+  writeln("RESULTS FOR 50% CO2 AND USE OF SOLAR POWER")
+  writeln("The Total Profit is ", getsol(Profit))
+  writeln("The total revenue is ", getsol(Revenue))
+  writeln("The total running cost is ", getsol(TotalRunningCost))
+  writeln("The total increasing cost is ", getsol(TotalIncreaseCost))
+  writeln
 
   writeln
-  writeln("This correponds to the power sources running at the below hourly rates in each time period")
+  writeln("This correponds to the power sources running at the below hourly rates at each time of day")
   write("Sources")
   forall(s in Source) write(",", s)
+  write(",", "Solar")
+  writeln
+  
+  TimeOfDay := 0
+  forall(t in Times) do
+    forall(i in 1..PeriodLength(t)) do
+        write(TimeOfDay)
+        forall(s in Source) write(",", getsol(PowerOutput(s,t)))
+        write(",",SolarOutput(t)) 
+      writeln
+      TimeOfDay := TimeOfDay + 1
+      end-do
+  end-do
+  writeln
+  
+  writeln("CHECKING WHERE SLACK IS ZERO IN STAGE 2")
+  
+  forall(e in Emiss) do
+    writeln("The slack on the ", Emiss(e),  " constraint is ", getslack(EmissionCS(e)))
+    writeln("This corresponds to a dual value ", getdual(EmissionCS(e)))
+  end-do
+  writeln
+  
+  writeln("The sources and time periods where the slack on the maximum output constraint is zero and the corresponding fairprice")
+  forall(s in Source, t in Times) do
+    if getslack(OutputCS(s,t)) = 0 then
+      writeln(Source(s), " in time period ", Times(t), " has fair price ", getdual(OutputCS(s,t)))
+    end-if
+  end-do
+  
+  forall(t in Times) do
+    if getslack(MaxHydroReserveCS(t)) = 0 then
+      writeln("For time period ", t, " the fair price for increasing size of the hydro reserve ", getdual(HydroCS(t)))
+    end-if
+  end-do
   writeln
 
   forall(t in Times) do
-    write("Period ", t)
-    forall(s in Source) write(",", getsol(PowerOutput(s,t)))
-    write("Solar ",",", SolarOutput(t))
-    writeln
+    if getslack(DemandCS(t)) <> 0 then
+      writeln("For time period ", t, " the demand is not met. The slack on the demand constraint is ", getslack(DemandCS(t)))
+    end-if
   end-do
   writeln
+  
+  writeln("MODEL WITHOUT GAS")
+  
 
   fclose(F_OUTPUT)
 end-model

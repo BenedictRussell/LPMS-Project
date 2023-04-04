@@ -15,7 +15,7 @@
     },
     "console": {
         "@expanded": true,
-        "@height": 227,
+        "@height": 87,
         "@maximized": "false",
         "json()": {
             "meta": {
@@ -44,7 +44,7 @@
                         "output": {
                             "id": "output545860",
                             "width": 1048,
-                            "height": 195,
+                            "height": 55,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "EPower.mos",
@@ -65,25 +65,23 @@
                         "tab4"
                     ],
                     "document": {
+                        "changed": false,
+                        "meta": {
+                            "timestamp": 1679688984584
+                        },
                         "filter": true,
                         "title": "Compile - Idle",
                         "tooltip": "Compile - Idle",
                         "output": {
                             "id": "build",
-                            "width": 1688,
-                            "height": 248,
-                            "scrollTop": -1,
+                            "width": 1048,
+                            "height": 55,
                             "config": {
                                 "name": "Compile",
                                 "toolbar": false,
                                 "command": ""
                             }
-                        },
-                        "hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-                        "meta": {
-                            "timestamp": 1679688984584
-                        },
-                        "changed": false
+                        }
                     },
                     "editorType": "output",
                     "active": false
@@ -100,7 +98,7 @@
             "@acestatus": 1,
             "@base-step-wizard": 2,
             "@divider": 4,
-            "@document": 13,
+            "@document": 28,
             "@editorswitch": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.palette-panel": 1,
@@ -108,9 +106,9 @@
             "@menu": 3,
             "@menuitem": 8,
             "@pane": 2,
-            "@session": 12,
-            "@tab": 12,
-            "@undoManager": 13,
+            "@session": 28,
+            "@tab": 27,
+            "@undoManager": 28,
             "@welcome": 1
         }
     },
@@ -126,8 +124,8 @@
             "@fullscreen": false,
             "@maximized": true,
             "@minimized": false,
-            "@position": "633:0",
-            "@size": "632:649"
+            "@position": "380:-8",
+            "@size": "610:612"
         }
     },
     "menus": {
@@ -212,7 +210,8 @@
             "meta": {
                 "accessList": [
                     "tab1",
-                    "tab11",
+                    "tab26",
+                    "tab25",
                     "tab2"
                 ]
             },
@@ -228,7 +227,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680454967424
+                            "timestamp": 1680470132884
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -249,7 +248,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680454926210
+                            "timestamp": 1680560977080
                         },
                         "filter": true,
                         "title": "EPower.mos",
@@ -261,16 +260,35 @@
                 },
                 {
                     "type": "tab",
-                    "name": "tab11",
-                    "path": "/EPower1.csv",
+                    "name": "tab25",
+                    "path": "/EPower2.csv",
                     "className": [
-                        "tab11",
-                        "changed"
+                        "tab25"
                     ],
                     "document": {
-                        "changed": true,
+                        "changed": false,
                         "meta": {
-                            "timestamp": 1680454980830
+                            "timestamp": 1680472332770
+                        },
+                        "filter": true,
+                        "title": "EPower2.csv",
+                        "tooltip": "/EPower2.csv",
+                        "ace": {}
+                    },
+                    "editorType": "ace",
+                    "active": false
+                },
+                {
+                    "type": "tab",
+                    "name": "tab26",
+                    "path": "/EPower1.csv",
+                    "className": [
+                        "tab26"
+                    ],
+                    "document": {
+                        "changed": false,
+                        "meta": {
+                            "timestamp": 1680471002107
                         },
                         "filter": true,
                         "title": "EPower1.csv",
@@ -288,7 +306,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/EPower1.csv"
+            "/EPower2.csv"
         ]
     },
     "welcome": {

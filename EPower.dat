@@ -19,7 +19,6 @@ Emissions:      [0.0   0.4     0      0      0     0
 
 EmissionsLimit: [30000 200000]
 !EmissionsLimit: [0 0]
-EmissionFactor: [1 1]
 
 ElectricityPrice:			[32]
 
