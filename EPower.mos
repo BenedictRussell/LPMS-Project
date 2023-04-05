@@ -1,7 +1,6 @@
 model EPowerModel
   uses "mmxprs"
 
-
   declarations
     Emiss: set of string
     Source:	set of string
@@ -21,7 +20,7 @@ model EPowerModel
     IncreasedOutput: array(Source, Times) of mpvar
     PumpDemand: array(Times) of mpvar
     HydroReservePower: array(Times) of mpvar
-    EmissionFactor: array(Emiss) of real
+    !EmissionFactor: array(Emiss) of real
     Limit: real
     SolarOutput: array(Times) of real
     Credits: mpvar
@@ -93,18 +92,18 @@ model EPowerModel
   Revenue := sum(t in Times)(PeriodPowerOutputRate(t) - PumpDemand(t))*PeriodLength(t)*ElectricityPrice
 
   ! Objective Function: Profit
-  Profit := Revenue - TotalRunningCost - TotalIncreaseCost 
+  Profit := Revenue - TotalRunningCost - TotalIncreaseCost
 
   maximise(Profit)
 
 
-  fopen("EPower2.csv", F_OUTPUT)
+  fopen("EPower3.csv", F_OUTPUT)
 
   writeln("BASE CASE SOLUTIONS")
   writeln
   writeln("The Total Profit is ", getsol(Profit))
-  
-  
+
+
   writeln("The total revenue is ", getsol(Revenue))
   writeln("The total running cost is ", getsol(TotalRunningCost))
   writeln("The total increasing cost is ", getsol(TotalIncreaseCost))
@@ -131,7 +130,7 @@ model EPowerModel
     else
         write(TimeOfDay+1)
     end-if
-    
+
     forall(s in Source) write(",", getsol(PowerOutput(s,t)))
     writeln
     TimeOfDay := TimeOfDay + 1
@@ -227,7 +226,7 @@ model EPowerModel
   until Limit < .5
 
   writeln
-  
+
   forall(e in Emiss) do
     writeln("The slack on the ", Emiss(e),  " constraint is ", getslack(EmissionCS(e)))
     if getslack(EmissionCS(e)) = 0 then
@@ -237,19 +236,31 @@ model EPowerModel
   writeln
 
   ! CARBON CREDITS
-  Limit := 0.5
-  writeln("Carbon Credits")
+  Limit := 0.5 !Reset required as end of previous loop sets Limit = 0.49
+  CreditPrice := 5
+  writeln("Investigating Carbon Credits")
+  writeln
+  writeln("CC Cost,Profit,Credits Purchased")
+  repeat
+
   EmissionCS(Emiss(2)) := sum(s in Source, t in Times) Emissions(Emiss(2),s)*PowerOutput(s,t)*PeriodLength(t) <= EmissionsLimit(Emiss(2))*Limit + Credits
-  
+
   ! Objective Function: Profit
 
-  Profit := Revenue - TotalRunningCost - TotalIncreaseCost - Credits*10000
+  Profit := Revenue - TotalRunningCost - TotalIncreaseCost - Credits*CreditPrice
   maximize(Profit)
-  writeln("The Total Profit is ", getsol(Profit))
-  
+  writeln(CreditPrice,",",getsol(Profit),",",getsol(Credits))
+
+  CreditPrice := CreditPrice +1 
+
+  until CreditPrice > 100
+
+  ! Reset EmissionsCS
+  EmissionCS(Emiss(2)) := sum(s in Source, t in Times) Emissions(Emiss(2),s)*PowerOutput(s,t)*PeriodLength(t) <= EmissionsLimit(Emiss(2))*Limit
+
   !SOLAR
-  
-  
+
+
   forall(t in Times)
     PeriodPowerOutputRate(t) := sum(s in Source) PowerOutput(s,t) + SolarOutput(t)
 
@@ -290,6 +301,61 @@ model EPowerModel
       end-do
   end-do
   writeln
+
+  writeln("REMOVING DIRTY FUELS")
+
+  DirtyFuels:= [Source(1), Source(2), Source(3)]
+
+  forall(d in DirtyFuels) do
+
+    writeln("Profit and Power Output when ", d, " is removed")
+
+      ! Constraint on maximum power output per source
+      forall(s in Source, t in Times) do
+        OutputCS(s,t) := PowerOutput(s,t) <= MaxOutput(s)
+        OutputCS(d,t) := PowerOutput(d,t) <= 0
+      end-do
+
+      forall(t in Times)
+
+        PeriodPowerOutputRate(t) := sum(s in Source) PowerOutput(s,t) + SolarOutput(t)
+
+     ! Demand per period
+      forall(t in Times)
+        DemandCS(t) := PeriodPowerOutputRate(t) - PumpDemand(t) = Demand(t)
+
+     ! Define Revenue
+      Revenue := sum(t in Times) (PeriodPowerOutputRate(t) - PumpDemand(t))*PeriodLength(t)*ElectricityPrice
+
+      ! Objective Function: Profit
+      Profit := Revenue - TotalRunningCost - TotalIncreaseCost
+
+      maximize(Profit)
+
+      writeln
+      writeln("The Total Profit is ", getsol(Profit))
+      writeln("The total revenue is ", getsol(Revenue))
+      writeln("The total running cost is ", getsol(TotalRunningCost))
+      writeln("The total increasing cost is ", getsol(TotalIncreaseCost))
+      writeln
+
+      writeln("This correponds to the power sources running at the below hourly rates over a day")
+      write("Sources")
+      forall(s in Source) write(",", s)
+      write(",", "Solar")
+      writeln
+      TimeOfDay := 0
+      forall(t in Times) do
+        forall(i in 1..PeriodLength(t)) do
+            write(TimeOfDay)
+            forall(s in Source) write(",", getsol(PowerOutput(s,t)))
+            write(",", SolarOutput(t))
+          writeln
+          TimeOfDay := TimeOfDay + 1
+          end-do
+      end-do
+      writeln
+  end-do
 
   writeln("CHECKING WHERE SLACK IS ZERO IN STAGE 2")
 

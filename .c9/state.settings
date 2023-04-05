@@ -11,17 +11,38 @@
         }
     },
     "breakpoints": {
-        "json()": []
+        "json()": [
+            {
+                "path": "/EPower.mos",
+                "line": 313,
+                "column": 0,
+                "text": "EPower.mos",
+                "content": "",
+                "time": 1680642687295,
+                "enabled": true,
+                "id": 1,
+                "invalid": false
+            },
+            {
+                "path": "/EPower.mos",
+                "line": 356,
+                "column": 6,
+                "text": "EPower.mos",
+                "content": "      writeln",
+                "time": 1680642872214,
+                "enabled": true,
+                "id": 2
+            }
+        ]
     },
     "console": {
         "@expanded": true,
-        "@height": 140,
+        "@height": 211,
         "@maximized": "false",
         "json()": {
             "meta": {
                 "accessList": [
-                    "tab3",
-                    "tab4"
+                    "tab3"
                 ]
             },
             "name": "pane1",
@@ -31,8 +52,7 @@
                     "name": "tab3",
                     "path": "",
                     "className": [
-                        "tab3",
-                        "running"
+                        "tab3"
                     ],
                     "document": {
                         "changed": false,
@@ -40,81 +60,23 @@
                             "timestamp": 1679679816247
                         },
                         "filter": true,
-                        "title": "EPower.mos - Running",
-                        "tooltip": "EPower.mos - Running",
+                        "title": "EPower.mos - Stopped",
+                        "tooltip": "EPower.mos - Stopped",
                         "output": {
                             "id": "output545860",
-                            "width": 1048,
-                            "height": 108,
+                            "width": 1819,
+                            "height": 179,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "EPower.mos",
-                                "debug": false,
+                                "debug": true,
                                 "toolbar": true,
                                 "name": ""
-                            },
-                            "running": {
-                                "pid": -44,
-                                "name": "output545860",
-                                "running": 2,
-                                "runner": [
-                                    {
-                                        "caption": "Mosel",
-                                        "cmd": [
-                                            "C:\\xpressmp\\workbench\\.c9\\node.exe",
-                                            "C:\\xpressmp\\workbench\\.c9\\node_modules\\mosel-runner\\bin\\mosel-runner",
-                                            "run",
-                                            "${debug?--debug=6167}",
-                                            "--basedir",
-                                            "$project_path",
-                                            "$file",
-                                            "--stack-trace=20",
-                                            "$args"
-                                        ],
-                                        "cmdCleanup": [
-                                            "true"
-                                        ],
-                                        "debugger": "mosel",
-                                        "debugport": 6167,
-                                        "selector": "\\.mos$",
-                                        "$builtin": true
-                                    }
-                                ],
-                                "debug": false
                             }
                         }
                     },
                     "editorType": "output",
                     "active": true
-                },
-                {
-                    "type": "tab",
-                    "name": "tab4",
-                    "path": "",
-                    "className": [
-                        "tab4"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1679688984584
-                        },
-                        "filter": true,
-                        "title": "Compile - Idle",
-                        "tooltip": "Compile - Idle",
-                        "output": {
-                            "id": "build",
-                            "width": 1048,
-                            "height": 108,
-                            "config": {
-                                "name": "Compile",
-                                "toolbar": false,
-                                "command": ""
-                            }
-                        }
-                    },
-                    "editorType": "output",
-                    "active": false
                 }
             ],
             "skin": "editor_tab",
@@ -137,7 +99,7 @@
             "@menuitem": 15,
             "@pane": 2,
             "@session": 7,
-            "@tab": 1,
+            "@tab": 5,
             "@undoManager": 7,
             "@welcome": 1
         }
@@ -152,10 +114,10 @@
     "local": {
         "window": {
             "@fullscreen": false,
-            "@maximized": true,
+            "@maximized": false,
             "@minimized": false,
-            "@position": "380:-8",
-            "@size": "610:612"
+            "@position": "-7:0",
+            "@size": "2051:1052"
         }
     },
     "menus": {
@@ -230,6 +192,13 @@
     "search-history": {
         "search": {
             "json()": [
+                "solar",
+                "until",
+                "repeat",
+                "DIRTY",
+                "dirty",
+                "remove",
+                ".csv",
                 "MaxOutput"
             ]
         }
@@ -240,7 +209,6 @@
             "meta": {
                 "accessList": [
                     "tab1",
-                    "tab0",
                     "tab2"
                 ]
             },
@@ -256,7 +224,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1680470132877
+                            "timestamp": 1680632863465
                         },
                         "filter": true,
                         "title": "EPower.dat",
@@ -286,27 +254,6 @@
                     },
                     "editorType": "ace",
                     "active": true
-                },
-                {
-                    "type": "tab",
-                    "name": "tab0",
-                    "path": "/EPower2.csv",
-                    "className": [
-                        "tab0",
-                        "changed"
-                    ],
-                    "document": {
-                        "changed": true,
-                        "meta": {
-                            "timestamp": 1680625894233
-                        },
-                        "filter": true,
-                        "title": "EPower2.csv",
-                        "tooltip": "/EPower2.csv",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
                 }
             ],
             "skin": "editor_tab",
@@ -316,7 +263,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/EPower2.csv"
+            "/EPower3.csv"
         ]
     },
     "welcome": {
